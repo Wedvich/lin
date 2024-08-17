@@ -10,9 +10,15 @@
     "packages/*"
   ],
   "scripts": {
+    "build": "turbo run build",
+    "clean": "turbo run clean",
     "commitlint": "commitlint --edit",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
     "postinstall": "is-ci || husky install",
-    "pre-commit": "yarn --immutable && yarn exec lint-staged"
+    "pre-commit": "yarn --immutable && yarn exec lint-staged",
+    "test": "turbo run test",
+    "typecheck": "turbo run typecheck"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.4.0",

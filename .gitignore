@@ -1,6 +1,10 @@
 .yarn/*
 !.yarn/patches
 
-.eslintcache
+.env
+.turbo
 .vscode
 node_modules
+
+.eslintcache
+*.log
