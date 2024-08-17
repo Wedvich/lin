@@ -1,0 +1,26 @@
+diff --git a/dist/worker.js b/dist/worker.js
+index 096b31094f657a4efff175e8a842bc959fadad3e..eaaa2def9f2030884ebf277bcda8f1cddcbb39c8 100644
+--- a/dist/worker.js
++++ b/dist/worker.js
+@@ -35,7 +35,7 @@ function runFormatting(settings, files) {
+         const contents = yield fs_1.promises.readFile(file.path, 'utf-8');
+         let formatted;
+         try {
+-            formatted = prettier.format(contents, Object.assign(Object.assign({}, (yield prettier.resolveConfig(file.path))), { filepath: file.path }));
++            formatted = yield prettier.format(contents, Object.assign(Object.assign({}, (yield prettier.resolveConfig(file.path))), { filepath: file.path }));
+         }
+         catch (e) {
+             process.stderr.write('\r\n' + (0, util_1.inspect)(e) + '\r\n');
+diff --git a/package.json b/package.json
+index 6929823bddc04c58fbc1c2f30f92bf19f83db0e4..7cc838de31121746bc225ad434dfcbd7560c49a8 100644
+--- a/package.json
++++ b/package.json
+@@ -41,7 +41,7 @@
+     "rxjs": "^6.6.3"
+   },
+   "peerDependencies": {
+-    "prettier": "^2.0.0"
++    "prettier": "^3.0.0"
+   },
+   "devDependencies": {
+     "@types/glob-stream": "^6.1.0",

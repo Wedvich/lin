@@ -1,0 +1,32 @@
+{
+  "name": "lin",
+  "private": true,
+  "packageManager": "yarn@4.4.0",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "commitlint": "commitlint --edit",
+    "postinstall": "is-ci || husky install",
+    "pre-commit": "yarn --immutable && yarn exec lint-staged"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.4.0",
+    "@commitlint/config-conventional": "^19.2.2",
+    "@eslint/js": "^9.9.0",
+    "@mixer/parallel-prettier": "patch:@mixer/parallel-prettier@npm%3A2.0.3#~/.yarn/patches/@mixer-parallel-prettier-npm-2.0.3-77b6f16b18.patch",
+    "@types/eslint__js": "^8.42.3",
+    "eslint": "^9.9.0",
+    "husky": "^9.1.4",
+    "is-ci": "^3.0.1",
+    "lint-staged": "^15.2.9",
+    "prettier": "^3.3.3",
+    "turbo": "^2.0.14",
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^8.1.0"
+  }
+}
