@@ -300,6 +300,12 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@lin/tsconfig@workspace:*, @lin/tsconfig@workspace:packages/tsconfig":
+  version: 0.0.0-use.local
+  resolution: "@lin/tsconfig@workspace:packages/tsconfig"
+  languageName: unknown
+  linkType: soft
+
 "@mixer/parallel-prettier@npm:2.0.3":
   version: 2.0.3
   resolution: "@mixer/parallel-prettier@npm:2.0.3"
@@ -1834,6 +1840,7 @@ __metadata:
     "@commitlint/cli": "npm:^19.4.0"
     "@commitlint/config-conventional": "npm:^19.2.2"
     "@eslint/js": "npm:^9.9.0"
+    "@lin/tsconfig": "workspace:*"
     "@mixer/parallel-prettier": "patch:@mixer/parallel-prettier@npm%3A2.0.3#~/.yarn/patches/@mixer-parallel-prettier-npm-2.0.3-77b6f16b18.patch"
     "@types/eslint__js": "npm:^8.42.3"
     eslint: "npm:^9.9.0"

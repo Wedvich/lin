@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "strict": true
+  }
+}
