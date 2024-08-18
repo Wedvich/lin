@@ -1,0 +1,28 @@
+{
+  "name": "@lin/iam",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./*": {
+      "import": "./lib/*.js",
+      "require": "./lib/*.js",
+      "types": "./lib/*.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w",
+    "test": "c8 node --import tsx --test src/**/*.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@lin/core": "workspace:*",
+    "uuid": "^10.0.0"
+  },
+  "devDependencies": {
+    "@lin/tsconfig": "workspace:*",
+    "@types/uuid": "^10.0.0",
+    "c8": "^10.1.2",
+    "tsx": "^4.17.0"
+  }
+}

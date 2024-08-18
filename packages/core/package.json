@@ -1,0 +1,24 @@
+{
+  "name": "@lin/core",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./*": {
+      "import": "./lib/*.js",
+      "require": "./lib/*.js",
+      "types": "./lib/*.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w",
+    "lint": "eslint",
+    "test": "c8 node --import tsx --test src/**/*.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@lin/tsconfig": "workspace:*",
+    "c8": "^10.1.2",
+    "tsx": "^4.17.0"
+  }
+}

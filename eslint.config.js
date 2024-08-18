@@ -3,7 +3,13 @@ import tseslint from "typescript-eslint";
 
 export default tseslint.config(
   {
-    ignores: [".yarn/*", "**/node_modules/**"],
+    ignores: [
+      ".yarn/*",
+      "**/.turbo/**",
+      "**/coverage/**",
+      "**/lib/**",
+      "**/node_modules/**",
+    ],
   },
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
@@ -14,6 +20,11 @@ export default tseslint.config(
         tsconfigRootDir: import.meta.dirname,
         warnOnUnsupportedTypeScriptVersion: false,
       },
+    },
+  },
+  {
+    rules: {
+      "@typescript-eslint/member-ordering": "warn",
     },
   },
 );
