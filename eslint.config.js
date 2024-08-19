@@ -27,4 +27,10 @@ export default tseslint.config(
       "@typescript-eslint/member-ordering": "warn",
     },
   },
+  {
+    files: ["**/*.test.*"],
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off",
+    },
+  },
 );
