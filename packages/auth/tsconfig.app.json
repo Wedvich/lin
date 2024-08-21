@@ -2,8 +2,11 @@
   "extends": ["@lin/tsconfig/base.json", "@lin/tsconfig/lib.json"],
   "compilerOptions": {
     "composite": true,
-    "outDir": "lib",
-    "rootDir": "src"
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "outDir": "dist",
+    "rootDir": "src",
+    "target": "esnext"
   },
   "include": ["src"],
   "exclude": ["**/*.test.*"]

@@ -9,6 +9,7 @@ export default tseslint.config(
       "**/coverage/**",
       "**/lib/**",
       "**/node_modules/**",
+      "**/*.json",
     ],
   },
   eslint.configs.recommended,
@@ -32,5 +33,5 @@ export default tseslint.config(
     rules: {
       "@typescript-eslint/no-explicit-any": "off",
     },
-  },
+  }
 );

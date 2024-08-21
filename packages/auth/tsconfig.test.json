@@ -6,7 +6,7 @@
   "include": ["src/**/*.test.ts"],
   "references": [
     {
-      "path": "./tsconfig.lib.json"
+      "path": "./tsconfig.app.json"
     }
   ]
 }

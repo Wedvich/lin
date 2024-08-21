@@ -1,6 +1,6 @@
 import crypto from "node:crypto";
-import { HashedPassword, Password } from "../model/password";
-import type { IDataEncryptionKeyProvider } from "./dataEncryptionKeyProvider";
+import { HashedPassword, Password } from "../model/password.js";
+import type { IDataEncryptionKeyProvider } from "./dataEncryptionKeyProvider.js";
 
 export interface IPasswordHashingService {
   hash(password: Password): Promise<HashedPassword>;
