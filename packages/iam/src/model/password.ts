@@ -1,10 +1,19 @@
-export class HashedPassword {
-  constructor(
-    readonly artifact: string,
-    readonly version: number,
-  ) {}
+export class Password {
+  private readonly _value: string;
 
-  equals(other: HashedPassword): boolean {
-    return this.artifact === other.artifact && this.version === other.version;
+  constructor(value: string) {
+    this._value = value.trim().normalize("NFKD");
   }
+
+  get value(): string {
+    return this._value;
+  }
+}
+
+Password.prototype.toString = function toString() {
+  return this.value;
+};
+
+export class HashedPassword {
+  constructor(readonly artifact: string, readonly version: number) {}
 }

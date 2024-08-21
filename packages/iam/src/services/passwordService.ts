@@ -1,13 +1,13 @@
 import crypto from "node:crypto";
-import { HashedPassword } from "../model/password";
+import { HashedPassword, Password } from "../model/password";
 import type { IDataEncryptionKeyProvider } from "./dataEncryptionKeyProvider";
 
 export interface IPasswordHashingService {
-  hash(password: string): Promise<HashedPassword>;
+  hash(password: Password): Promise<HashedPassword>;
 }
 
 export interface IPasswordVerificationService {
-  verify(password: string, hashedPassword: HashedPassword): Promise<boolean>;
+  verify(password: Password, hashedPassword: HashedPassword): Promise<boolean>;
 }
 
 /** @see https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html#scrypt */
@@ -23,11 +23,11 @@ export class PasswordService
   private readonly _version = 1;
 
   constructor(
-    private readonly _dataEncryptionKeyProvider: IDataEncryptionKeyProvider,
+    private readonly _dataEncryptionKeyProvider: IDataEncryptionKeyProvider
   ) {}
 
-  async hash(password: string): Promise<HashedPassword> {
-    const buffer = Buffer.from(password);
+  async hash(password: Password): Promise<HashedPassword> {
+    const buffer = Buffer.from(password.value);
     const saltedHash = await this.createSaltedHash(buffer);
 
     const key = await this._dataEncryptionKeyProvider.getKey();
@@ -37,8 +37,8 @@ export class PasswordService
   }
 
   async verify(
-    password: string,
-    hashedPassword: HashedPassword,
+    password: Password,
+    hashedPassword: HashedPassword
   ): Promise<boolean> {
     if (hashedPassword.version !== this._version) {
       return false;
@@ -47,18 +47,21 @@ export class PasswordService
     const key = await this._dataEncryptionKeyProvider.getKey();
     const decryptedHash = this.decrypt(
       Buffer.from(hashedPassword.artifact, "utf16le"),
-      key,
+      key
     );
 
     const salt = decryptedHash.subarray(-16);
-    const saltedHash = await this.createSaltedHash(Buffer.from(password), salt);
+    const saltedHash = await this.createSaltedHash(
+      Buffer.from(password.value),
+      salt
+    );
 
     return crypto.timingSafeEqual(decryptedHash, saltedHash);
   }
 
   private async createSaltedHash(
     password: Buffer,
-    salt = crypto.randomBytes(16),
+    salt = crypto.randomBytes(16)
   ): Promise<Buffer> {
     const hash = await new Promise<Buffer>((resolve) => {
       crypto.scrypt(password, salt, 32, scryptOptions, (err, derivedKey) => {
