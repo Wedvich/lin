@@ -520,19 +520,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lin/core@workspace:*, @lin/core@workspace:packages/core":
+"@lin/auth@workspace:packages/auth":
   version: 0.0.0-use.local
-  resolution: "@lin/core@workspace:packages/core"
-  dependencies:
-    "@lin/tsconfig": "workspace:*"
-    c8: "npm:^10.1.2"
-    tsx: "npm:^4.17.0"
-  languageName: unknown
-  linkType: soft
-
-"@lin/iam@workspace:packages/iam":
-  version: 0.0.0-use.local
-  resolution: "@lin/iam@workspace:packages/iam"
+  resolution: "@lin/auth@workspace:packages/auth"
   dependencies:
     "@lin/core": "workspace:*"
     "@lin/tsconfig": "workspace:*"
@@ -540,6 +530,16 @@ __metadata:
     c8: "npm:^10.1.2"
     tsx: "npm:^4.17.0"
     uuid: "npm:^10.0.0"
+  languageName: unknown
+  linkType: soft
+
+"@lin/core@workspace:*, @lin/core@workspace:packages/core":
+  version: 0.0.0-use.local
+  resolution: "@lin/core@workspace:packages/core"
+  dependencies:
+    "@lin/tsconfig": "workspace:*"
+    c8: "npm:^10.1.2"
+    tsx: "npm:^4.17.0"
   languageName: unknown
   linkType: soft
 

@@ -1,5 +1,5 @@
 {
-  "name": "@lin/iam",
+  "name": "@lin/auth",
   "private": true,
   "type": "module",
   "exports": {
