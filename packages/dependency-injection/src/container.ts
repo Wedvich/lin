@@ -81,7 +81,12 @@ export class Container implements IContainer {
         }
 
         delete body.placeholder;
-        body.factory = this.makeFactory(type, dependencyTokens, lifestyle);
+        body.factory = this.makeFactory(
+          type,
+          dependencyTokens,
+          lifestyle,
+          internalToken
+        );
         body.lifestyle = lifestyle;
       });
     } else {
@@ -89,7 +94,12 @@ export class Container implements IContainer {
         id: internalToken,
         adjacentTo: [],
         body: {
-          factory: this.makeFactory(type, dependencyTokens, lifestyle),
+          factory: this.makeFactory(
+            type,
+            dependencyTokens,
+            lifestyle,
+            internalToken
+          ),
           lifestyle,
         },
       });
@@ -148,11 +158,12 @@ export class Container implements IContainer {
   private makeFactory<T>(
     type: InjectableClass<T>,
     dependencyTokens: ResolveToken<any>[],
-    lifestyle: Lifestyle
+    lifestyle: Lifestyle,
+    internalToken: string
   ): () => T {
     return () => {
       if (lifestyle === Lifestyle.Singleton) {
-        const internalToken = this.extractInternalToken(type);
+        internalToken ??= this.extractInternalToken(type);
         if (!this._singletons.has(internalToken)) {
           const dependencies = dependencyTokens.map((dependency) =>
             this.get(dependency)

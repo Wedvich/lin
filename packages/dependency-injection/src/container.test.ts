@@ -219,6 +219,32 @@ test.describe("registerInstance", () => {
       }
     );
   });
+
+  test("registers with string tokens", () => {
+    class X {}
+
+    const x = new X();
+
+    container.registerInstance("TokenX", x);
+
+    const xd = container.get("TokenX");
+
+    assert.equal(x, xd);
+  });
+
+  test("registers with symbol tokens", () => {
+    class X {}
+
+    const x = new X();
+
+    const token = Symbol.for("TokenX");
+
+    container.registerInstance(token, x);
+
+    const xd = container.get(token);
+
+    assert.equal(x, xd);
+  });
 });
 
 test.describe("verify", () => {
