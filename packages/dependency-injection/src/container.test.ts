@@ -279,5 +279,31 @@ test.describe("verify", () => {
 
     container.register(Y, Y, Lifestyle.Transient);
     container.register(X, X, Lifestyle.Transient);
+
+    container.verify();
+  });
+
+  test("throws if there are circular dependencies", () => {
+    class X {
+      static get [Inject]() {
+        return [Y];
+      }
+    }
+
+    class Y {
+      static readonly [Inject] = [X];
+    }
+
+    container.register(Y, Y, Lifestyle.Transient);
+    container.register(X, X, Lifestyle.Transient);
+
+    assert.throws(
+      () => {
+        container.verify();
+      },
+      {
+        message: "Circular dependencies detected: Y → X → Y",
+      }
+    );
   });
 });

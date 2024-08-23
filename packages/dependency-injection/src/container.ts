@@ -1,5 +1,9 @@
 import { DiGraph, type VertexDefinition } from "digraph-js";
-import { AlreadyRegisteredError, NotRegisteredError } from "./errors";
+import {
+  AlreadyRegisteredError,
+  CircularDependenciesError,
+  NotRegisteredError,
+} from "./errors";
 
 export const Inject = Symbol.for("Inject");
 
@@ -139,6 +143,16 @@ export class Container implements IContainer {
   }
 
   verify(): void {
+    if (!this._graph.isAcyclic) {
+      const [cycle] = this._graph.findCycles();
+      const message =
+        "Circular dependencies detected: " +
+        cycle.join(" → ") +
+        " → " +
+        cycle[0];
+      throw new CircularDependenciesError(message);
+    }
+
     for (const registration of this._graph.traverse()) {
       if (registration.body.placeholder) {
         throw new NotRegisteredError(
