@@ -5,5 +5,5 @@
     "checkJs": true,
     "module": "nodenext"
   },
-  "include": ["./*.js"]
+  "include": ["./*.js", "./scripts/**/*.ts"]
 }

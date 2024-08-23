@@ -23,15 +23,18 @@
   "devDependencies": {
     "@commitlint/cli": "^19.4.0",
     "@commitlint/config-conventional": "^19.2.2",
+    "@eslint/compat": "^1.1.1",
     "@eslint/js": "^9.9.0",
     "@lin/tsconfig": "workspace:*",
     "@mixer/parallel-prettier": "patch:@mixer/parallel-prettier@npm%3A2.0.3#~/.yarn/patches/@mixer-parallel-prettier-npm-2.0.3-77b6f16b18.patch",
     "@types/eslint__js": "^8.42.3",
     "eslint": "^9.9.0",
+    "eslint-plugin-import": "^2.29.1",
     "husky": "^9.1.4",
     "is-ci": "^3.0.1",
     "lint-staged": "^15.2.9",
     "prettier": "^3.3.3",
+    "tsx": "^4.17.0",
     "turbo": "^2.0.14",
     "typescript": "^5.5.4",
     "typescript-eslint": "^8.1.0"
