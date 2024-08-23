@@ -1,0 +1,29 @@
+{
+  "name": "@lin/dependency-injection",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./*": {
+      "import": "./lib/*.js",
+      "require": "./lib/*.js",
+      "types": "./lib/*.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.lib.json",
+    "dev": "tsc -w",
+    "lint": "eslint",
+    "test": "c8 node --import tsx --test src/**/*.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "digraph-js": "^2.2.3"
+  },
+  "devDependencies": {
+    "@lin/tsconfig": "workspace:*",
+    "c8": "^10.1.2",
+    "tsx": "^4.17.0",
+    "type-fest": "^4.25.0",
+    "typescript": "^5.5.4"
+  }
+}
