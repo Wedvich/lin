@@ -12,8 +12,11 @@ export class ViteLoggerAdapter implements ViteLogger {
   private _loggedErrors = new WeakSet<Error | RollupError>();
   private _warnedMessages = new Set<string>();
   private _hasWarned = false;
+  private _logger: Logger;
 
-  constructor(private readonly _logger: Logger) {}
+  constructor(logger: Logger) {
+    this._logger = logger.child({}, { msgPrefix: "[vite] " });
+  }
 
   get hasWarned(): boolean {
     return this._hasWarned;

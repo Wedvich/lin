@@ -6,7 +6,7 @@ import { ViteLoggerAdapter } from "./logger";
 import type { Logger } from "pino";
 
 const logger = container.get<Logger>(TypeIds.Logger);
-logger.info("Starting server");
+logger.info("Starting server...");
 
 const port = process.env.PORT || 3080;
 

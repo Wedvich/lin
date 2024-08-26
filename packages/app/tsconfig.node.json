@@ -1,9 +1,11 @@
 {
   "extends": ["@lin/tsconfig/base.json", "@lin/tsconfig/lib.json"],
   "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
     "composite": true,
     "jsx": "react-jsx",
     "noEmit": true
   },
-  "include": ["vite.config.ts"]
+  "include": ["postcss.config.js", "tailwind.config.ts", "vite.config.ts"]
 }
