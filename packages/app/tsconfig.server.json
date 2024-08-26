@@ -1,0 +1,10 @@
+{
+  "extends": ["@lin/tsconfig/base.json", "@lin/tsconfig/lib.json"],
+  "compilerOptions": {
+    "composite": true,
+    "outDir": "server",
+    "rootDir": "src/server"
+  },
+  "include": ["src/server"],
+  "exclude": ["**/*.test.*"]
+}

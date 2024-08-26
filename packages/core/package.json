@@ -10,15 +10,16 @@
     }
   },
   "scripts": {
-    "build": "tsc",
-    "dev": "tsc -w",
+    "build": "tsc -p tsconfig.lib.json",
+    "dev": "yarn build -w",
     "lint": "eslint",
     "test": "c8 node --import tsx --test src/**/*.test.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc"
   },
   "devDependencies": {
     "@lin/tsconfig": "workspace:*",
     "c8": "^10.1.2",
-    "tsx": "^4.17.0"
+    "tsx": "^4.17.0",
+    "typescript": "^5.5.4"
   }
 }

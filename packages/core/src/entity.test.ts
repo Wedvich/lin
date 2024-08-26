@@ -1,6 +1,5 @@
-import test from "node:test";
 import assert from "node:assert/strict";
-
+import test from "node:test";
 import { Entity } from "./entity.js";
 
 test("id cannot be reassigned", () => {

@@ -4,10 +4,11 @@
 .env
 .turbo
 .vscode
-node_modules
+build
 coverage
 dist
 lib
+node_modules
 
 .DS_Store
 .eslintcache

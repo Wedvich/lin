@@ -1,6 +1,7 @@
 import crypto from "node:crypto";
-import { HashedPassword, Password } from "../model/password.js";
+import { HashedPassword } from "../model/password.js";
 import type { IDataEncryptionKeyProvider } from "./dataEncryptionKeyProvider.js";
+import type { Password } from "../model/password.js";
 
 export interface IPasswordHashingService {
   hash(password: Password): Promise<HashedPassword>;
@@ -23,7 +24,7 @@ export class PasswordService
   private readonly _version = 1;
 
   constructor(
-    private readonly _dataEncryptionKeyProvider: IDataEncryptionKeyProvider
+    private readonly _dataEncryptionKeyProvider: IDataEncryptionKeyProvider,
   ) {}
 
   async hash(password: Password): Promise<HashedPassword> {
@@ -38,7 +39,7 @@ export class PasswordService
 
   async verify(
     password: Password,
-    hashedPassword: HashedPassword
+    hashedPassword: HashedPassword,
   ): Promise<boolean> {
     if (hashedPassword.version !== this._version) {
       return false;
@@ -47,13 +48,13 @@ export class PasswordService
     const key = await this._dataEncryptionKeyProvider.getKey();
     const decryptedHash = this.decrypt(
       Buffer.from(hashedPassword.artifact, "utf16le"),
-      key
+      key,
     );
 
     const salt = decryptedHash.subarray(-16);
     const saltedHash = await this.createSaltedHash(
       Buffer.from(password.value),
-      salt
+      salt,
     );
 
     return crypto.timingSafeEqual(decryptedHash, saltedHash);
@@ -61,7 +62,7 @@ export class PasswordService
 
   private async createSaltedHash(
     password: Buffer,
-    salt = crypto.randomBytes(16)
+    salt = crypto.randomBytes(16),
   ): Promise<Buffer> {
     const hash = await new Promise<Buffer>((resolve) => {
       crypto.scrypt(password, salt, 32, scryptOptions, (err, derivedKey) => {

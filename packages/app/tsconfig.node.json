@@ -1,0 +1,9 @@
+{
+  "extends": ["@lin/tsconfig/base.json", "@lin/tsconfig/lib.json"],
+  "compilerOptions": {
+    "composite": true,
+    "jsx": "react-jsx",
+    "noEmit": true
+  },
+  "include": ["vite.config.ts"]
+}

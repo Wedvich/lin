@@ -1,15 +1,14 @@
-import test from "node:test";
 import assert from "node:assert/strict";
-
-import { PasswordService } from "./passwordService.js";
-import { IDataEncryptionKeyProvider } from "./dataEncryptionKeyProvider.js";
+import test from "node:test";
 import { Password } from "../model/password.js";
+import { PasswordService } from "./passwordService.js";
+import type { IDataEncryptionKeyProvider } from "./dataEncryptionKeyProvider.js";
 
 const dataEncryptionKeyProvider: IDataEncryptionKeyProvider = {
   getKey: async () =>
     Buffer.from(
       "cf63161283424479949b9df352020abc0dd13047d6fa4261aec9cf0880303729",
-      "hex"
+      "hex",
     ),
 };
 
