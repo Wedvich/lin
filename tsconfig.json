@@ -5,5 +5,5 @@
     "checkJs": true,
     "module": "nodenext"
   },
-  "include": ["./*.js", "./scripts/**/*.ts"]
+  "include": [".prettierrc.js", "*.js", "scripts/**/*.ts"]
 }
