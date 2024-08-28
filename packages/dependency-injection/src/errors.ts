@@ -15,3 +15,9 @@ export class CircularDependenciesError extends Error {
     super(message, options);
   }
 }
+
+export class ContainerSealedError extends Error {
+  constructor(message?: string, options?: ErrorOptions) {
+    super(message, options);
+  }
+}

@@ -2,6 +2,7 @@ import { DiGraph, type VertexDefinition } from "digraph-js";
 import {
   AlreadyRegisteredError,
   CircularDependenciesError,
+  ContainerSealedError,
   NotRegisteredError,
 } from "./errors";
 
@@ -25,12 +26,14 @@ interface InjectableClass<T> extends Class {
 export type ResolveToken<T = never> = InjectableClass<T> | string | symbol;
 
 export interface IContainer {
+  createChildContainer(): IContainer;
+
   get<T>(token: ResolveToken<T>): T;
 
   register<T>(
     token: ResolveToken<T>,
     type: InjectableClass<T>,
-    lifestyle: Lifestyle
+    lifestyle: Lifestyle,
   ): void;
 
   registerInstance<T extends Class>(token: ResolveToken<T>, instance: T): void;
@@ -38,17 +41,26 @@ export interface IContainer {
   verify(): void;
 }
 
+interface FactoryFn<T> {
+  (container: Container): T;
+}
+
 interface RegistrationDescriptor<T> extends Record<string, unknown> {
   placeholder?: boolean;
-  factory?: () => T;
+  factory?: FactoryFn<T>;
   lifestyle?: Lifestyle;
 }
 
 type Registration<T> = VertexDefinition<RegistrationDescriptor<T>>;
 
 export class Container implements IContainer {
-  private readonly _graph = new DiGraph<Registration<any>>();
-  private readonly _singletons = new Map<string, any>();
+  protected _sealed = false;
+  protected _graph = new DiGraph<Registration<any>>();
+  protected _singletons = new Map<string, any>();
+
+  createChildContainer(): IContainer {
+    return new ChildContainer(this);
+  }
 
   get<T>(token: ResolveToken<T>): T {
     const internalToken = this.extractInternalToken(token);
@@ -65,14 +77,18 @@ export class Container implements IContainer {
       throw new NotRegisteredError(`Token ${internalToken} is not registered`);
     }
 
-    return descriptor.factory!();
+    return descriptor.factory!(this);
   }
 
   register<T>(
     token: ResolveToken<T>,
     type: InjectableClass<T>,
-    lifestyle: Lifestyle
+    lifestyle: Lifestyle,
   ): void {
+    if (this._sealed) {
+      throw new ContainerSealedError("Container has been sealed");
+    }
+
     const internalToken = this.extractInternalToken(token);
     const dependencyTokens = type[Inject] ?? [];
 
@@ -80,7 +96,7 @@ export class Container implements IContainer {
       this._graph.mergeVertexBody(internalToken, (body) => {
         if (!body.placeholder) {
           throw new AlreadyRegisteredError(
-            `Token ${internalToken} is already registered`
+            `Token ${internalToken} is already registered`,
           );
         }
 
@@ -89,7 +105,7 @@ export class Container implements IContainer {
           type,
           dependencyTokens,
           lifestyle,
-          internalToken
+          internalToken,
         );
         body.lifestyle = lifestyle;
       });
@@ -102,7 +118,7 @@ export class Container implements IContainer {
             type,
             dependencyTokens,
             lifestyle,
-            internalToken
+            internalToken,
           ),
           lifestyle,
         },
@@ -127,22 +143,30 @@ export class Container implements IContainer {
   }
 
   registerInstance<T extends Class>(token: ResolveToken<T>, instance: T): void {
+    if (this._sealed) {
+      throw new ContainerSealedError("Container has been sealed");
+    }
+
     const internalToken = this.extractInternalToken(token);
     if (this._singletons.has(internalToken)) {
       throw new AlreadyRegisteredError(
-        `Token ${internalToken} is already registered`
+        `Token ${internalToken} is already registered`,
       );
     }
 
     this.register(
       internalToken,
       instance.constructor as unknown as InjectableClass<T>,
-      Lifestyle.Singleton
+      Lifestyle.Singleton,
     );
     this._singletons.set(internalToken, instance);
   }
 
   verify(): void {
+    if (this._sealed) return;
+
+    this._sealed = true;
+
     if (!this._graph.isAcyclic) {
       const [cycle] = this._graph.findCycles();
       const message =
@@ -156,13 +180,17 @@ export class Container implements IContainer {
     for (const registration of this._graph.traverse()) {
       if (registration.body.placeholder) {
         throw new NotRegisteredError(
-          `Token ${registration.id} is not registered`
+          `Token ${registration.id} is not registered`,
         );
       }
     }
   }
 
-  private extractInternalToken<T>(token: ResolveToken<T>): string {
+  protected extractInternalToken<T>(token: ResolveToken<T>): string {
+    if (token == null) {
+      throw new TypeError("Token cannot be null or undefined");
+    }
+
     if (typeof token === "string") return token;
     if (typeof token === "symbol") return token.toString();
 
@@ -173,25 +201,51 @@ export class Container implements IContainer {
     type: InjectableClass<T>,
     dependencyTokens: ResolveToken<any>[],
     lifestyle: Lifestyle,
-    internalToken: string
-  ): () => T {
-    return () => {
+    internalToken: string,
+  ): FactoryFn<T> {
+    return (container: Container) => {
       if (lifestyle === Lifestyle.Singleton) {
-        internalToken ??= this.extractInternalToken(type);
-        if (!this._singletons.has(internalToken)) {
+        internalToken ??= container.extractInternalToken(type);
+        if (!container._singletons.has(internalToken)) {
           const dependencies = dependencyTokens.map((dependency) =>
-            this.get(dependency)
+            container.get(dependency),
           );
-          this._singletons.set(internalToken, new type(...dependencies));
+          container._singletons.set(internalToken, new type(...dependencies));
         }
 
-        return this._singletons.get(internalToken);
+        return container._singletons.get(internalToken);
       }
 
       const dependencies = dependencyTokens.map((dependency) =>
-        this.get(dependency)
+        container.get(dependency),
       );
       return new type(...dependencies);
     };
+  }
+}
+
+class ChildMap extends Map<string, any> {
+  constructor(private readonly _parent: Map<string, any>) {
+    super();
+  }
+
+  get(key: string): any {
+    return this._parent.get(key) ?? super.get(key);
+  }
+
+  has(key: string): boolean {
+    return this._parent.has(key) || super.has(key);
+  }
+}
+
+class ChildContainer extends Container {
+  constructor(protected readonly _parent: Container) {
+    super();
+
+    this._parent.verify();
+
+    const parentGraph = this._parent["_graph"].toDict();
+    this._graph = DiGraph.fromRaw(parentGraph);
+    this._singletons = new ChildMap(this._parent["_singletons"]);
   }
 }

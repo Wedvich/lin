@@ -70,7 +70,7 @@ test.describe("get", () => {
       },
       {
         message: "Token X is not registered",
-      }
+      },
     );
   });
 
@@ -89,7 +89,7 @@ test.describe("get", () => {
       },
       {
         message: "Token X is not registered",
-      }
+      },
     );
   });
 
@@ -109,7 +109,10 @@ test.describe("get", () => {
     class Z {
       static readonly [Inject] = [X, Y];
 
-      constructor(public x: X, public y: Y) {}
+      constructor(
+        public x: X,
+        public y: Y,
+      ) {}
     }
 
     container.register(X, X, Lifestyle.Transient);
@@ -143,6 +146,28 @@ test.describe("get", () => {
 
     assert.equal(y1.x, y2.x);
   });
+
+  test("token cannot be null", () => {
+    assert.throws(
+      () => {
+        container.get(null as any);
+      },
+      {
+        message: "Token cannot be null or undefined",
+      },
+    );
+  });
+
+  test("token cannot be undefined", () => {
+    assert.throws(
+      () => {
+        container.get(undefined as any);
+      },
+      {
+        message: "Token cannot be null or undefined",
+      },
+    );
+  });
 });
 
 test.describe("register", () => {
@@ -157,7 +182,7 @@ test.describe("register", () => {
       },
       {
         message: "Token X is already registered",
-      }
+      },
     );
   });
 
@@ -170,6 +195,21 @@ test.describe("register", () => {
 
     container.register(Y, Y, Lifestyle.Transient);
     container.register(X, X, Lifestyle.Transient);
+  });
+
+  test("throws if the container is sealed", () => {
+    class X {}
+
+    container.verify();
+
+    assert.throws(
+      () => {
+        container.register(X, X, Lifestyle.Transient);
+      },
+      {
+        message: "Container has been sealed",
+      },
+    );
   });
 });
 
@@ -199,7 +239,7 @@ test.describe("registerInstance", () => {
       },
       {
         message: "Token X is already registered",
-      }
+      },
     );
   });
 
@@ -216,7 +256,7 @@ test.describe("registerInstance", () => {
       },
       {
         message: "Token X is already registered",
-      }
+      },
     );
   });
 
@@ -245,6 +285,21 @@ test.describe("registerInstance", () => {
 
     assert.equal(x, xd);
   });
+
+  test("throws if the container is sealed", () => {
+    class X {}
+
+    container.verify();
+
+    assert.throws(
+      () => {
+        container.registerInstance(X, new X());
+      },
+      {
+        message: "Container has been sealed",
+      },
+    );
+  });
 });
 
 test.describe("verify", () => {
@@ -266,7 +321,7 @@ test.describe("verify", () => {
       },
       {
         message: "Token A is not registered",
-      }
+      },
     );
   });
 
@@ -303,7 +358,153 @@ test.describe("verify", () => {
       },
       {
         message: "Circular dependencies detected: Y → X → Y",
-      }
+      },
     );
+  });
+
+  test("seals the container", () => {
+    class X {}
+
+    container.verify();
+
+    assert.throws(
+      () => {
+        container.register(X, X, Lifestyle.Transient);
+      },
+      {
+        message: "Container has been sealed",
+      },
+    );
+  });
+});
+
+test.describe("ChildContainer", () => {
+  test("seals its parent parent container", () => {
+    class X {}
+
+    container.createChildContainer();
+
+    assert.throws(
+      () => {
+        container.register(X, X, Lifestyle.Transient);
+      },
+      {
+        message: "Container has been sealed",
+      },
+    );
+  });
+
+  test("can resolve dependencies from parent container", () => {
+    class X {
+      moo() {
+        return "moo";
+      }
+    }
+
+    class Y {
+      static readonly [Inject] = [X];
+
+      constructor(public x: X) {}
+    }
+
+    container.register(X, X, Lifestyle.Transient);
+
+    const childContainer = container.createChildContainer();
+
+    childContainer.register(Y, Y, Lifestyle.Transient);
+
+    const y = childContainer.get(Y);
+
+    assert.equal(y.x.moo(), "moo");
+  });
+
+  test("can recursively resolve dependencies from parent container", () => {
+    class X {
+      moo() {
+        return "moo";
+      }
+    }
+
+    class Y {
+      static readonly [Inject] = [X];
+
+      constructor(public x: X) {}
+    }
+
+    container.register(X, X, Lifestyle.Transient);
+
+    const childContainer1 = container.createChildContainer();
+    const childContainer2 = childContainer1.createChildContainer();
+
+    childContainer2.register(Y, Y, Lifestyle.Transient);
+
+    const y = childContainer2.get(Y);
+
+    assert.equal(y.x.moo(), "moo");
+  });
+
+  test("does not affect parent container", () => {
+    class X {}
+
+    class Y {
+      static readonly [Inject] = [X];
+    }
+
+    container.register(X, X, Lifestyle.Transient);
+
+    const childContainer = container.createChildContainer();
+
+    childContainer.register(Y, Y, Lifestyle.Transient);
+
+    assert.throws(
+      () => {
+        container.get(Y);
+      },
+      {
+        message: "Token Y is not registered",
+      },
+    );
+  });
+
+  test("returns same lazy singletons as parent container", () => {
+    class X {}
+
+    container.register(X, X, Lifestyle.Singleton);
+
+    const childContainer = container.createChildContainer();
+
+    const x1 = container.get(X);
+    const x2 = childContainer.get(X);
+
+    assert.equal(x1, x2);
+  });
+
+  test("returns same eager singletons as parent container", () => {
+    class X {}
+
+    const x = new X();
+
+    container.registerInstance(X, x);
+
+    const childContainer = container.createChildContainer();
+
+    const x1 = container.get(X);
+    const x2 = childContainer.get(X);
+
+    assert.equal(x1, x2);
+  });
+
+  test("does not share lazy singletons with parent container", () => {
+    class X {}
+
+    container.register(X, X, Lifestyle.Singleton);
+
+    const childContainer1 = container.createChildContainer();
+    const childContainer2 = container.createChildContainer();
+
+    const x1 = childContainer1.get(X);
+    const x2 = childContainer2.get(X);
+
+    assert.notEqual(x1, x2);
   });
 });
