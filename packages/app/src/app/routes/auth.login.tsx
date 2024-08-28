@@ -8,6 +8,7 @@ import {
   Label,
   Legend,
 } from "#components/fieldset";
+import Icon from "#components/icon";
 import { Input } from "#components/input";
 import { Text } from "#components/text";
 
@@ -18,16 +19,22 @@ export default function Login() {
         <Legend>Sign in to Lin</Legend>
         <FieldGroup>
           <Field>
-            <Label>Email address</Label>
+            <Label className="flex gap-x-2 align-middle">
+              <Icon.Email className="text-zinc-500/90" />
+              Email address
+            </Label>
             <Input name="email" type="email" />
           </Field>
           <Field>
-            <Label>Password</Label>
+            <Label className="flex gap-x-2">
+              <Icon.Password className="text-zinc-500/90" />
+              Password
+            </Label>
             <Input name="password" type="password" />
           </Field>
         </FieldGroup>
         <div className="mt-10 space-y-6">
-          <Button color="blue" type="submit" className="w-full">
+          <Button color="rose" type="submit" className="w-full">
             Sign in
           </Button>
           <div className="relative mt-10">
@@ -38,7 +45,7 @@ export default function Login() {
               <Divider />
             </div>
             <div className="relative flex justify-center text-sm font-medium leading-6">
-              <Text className="bg-white px-6 dark:bg-black">
+              <Text className="bg-white px-6 dark:bg-zinc-950">
                 Or continue with
               </Text>
             </div>
