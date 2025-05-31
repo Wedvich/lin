@@ -1,3 +1,4 @@
+.husky/_
+.turbo
 .yarn
 node_modules
-.husky/_

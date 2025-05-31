@@ -1,0 +1,13 @@
+{
+  "$schema": "./node_modules/turbo/schema.json",
+  "ui": "tui",
+  "tasks": {
+    "build": {},
+    "dev": {},
+    "lint": {},
+    "test:coverage": {},
+    "test:watch": {},
+    "test": {},
+    "typecheck": {}
+  }
+}
