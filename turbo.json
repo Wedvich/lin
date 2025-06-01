@@ -3,7 +3,10 @@
   "ui": "tui",
   "tasks": {
     "build": {},
-    "dev": {},
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
     "lint": {},
     "test:coverage": {},
     "test:watch": {},

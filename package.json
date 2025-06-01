@@ -7,6 +7,9 @@
   },
   "type": "module",
   "packageManager": "yarn@4.9.1",
+  "workspaces": [
+    "apps/*"
+  ],
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",

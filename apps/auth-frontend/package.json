@@ -1,0 +1,11 @@
+{
+  "name": "@lin/auth-frontend",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite dev"
+  },
+  "devDependencies": {
+    "vite": "^6.3.5"
+  }
+}
