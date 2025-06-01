@@ -1,4 +1,8 @@
+# Auto-generated
 .husky/_
 .turbo
 .yarn
 node_modules
+
+# Build artifacts
+dist
