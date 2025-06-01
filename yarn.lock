@@ -317,6 +317,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@lin/ui-components@workspace:packages/ui-components":
+  version: 0.0.0-use.local
+  resolution: "@lin/ui-components@workspace:packages/ui-components"
+  dependencies:
+    "@lin/tsconfig": "workspace:*"
+    typescript: "npm:^5.8.3"
+  languageName: unknown
+  linkType: soft
+
 "@lin/utils@workspace:*, @lin/utils@workspace:packages/utils":
   version: 0.0.0-use.local
   resolution: "@lin/utils@workspace:packages/utils"

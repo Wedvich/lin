@@ -1,0 +1,17 @@
+{
+  "name": "@lin/ui-components",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "tsc --project tsconfig.build.json",
+    "dev": "tsc --project tsconfig.build.json --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@lin/tsconfig": "workspace:*",
+    "typescript": "^5.8.3"
+  }
+}
