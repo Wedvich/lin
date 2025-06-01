@@ -8,15 +8,27 @@
   "type": "module",
   "packageManager": "yarn@4.9.1",
   "workspaces": [
-    "apps/*"
+    "apps/*",
+    "configs/*"
   ],
+  "scripts": {
+    "build": "turbo run build --continue",
+    "dev": "turbo run dev --continue",
+    "lint": "turbo run lint --continue",
+    "test:coverage": "turbo run test:coverage --continue",
+    "test:watch": "turbo run test:watch --continue",
+    "test": "turbo run test --continue",
+    "typecheck": "turbo run typecheck --continue"
+  },
   "resolutions": {
     "vite": "npm:rolldown-vite@latest"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
+    "@lin/tsconfig": "workspace:*",
     "husky": "^9.1.7",
-    "turbo": "^2.5.4"
+    "turbo": "^2.5.4",
+    "typescript": "^5.8.3"
   }
 }

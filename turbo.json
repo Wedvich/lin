@@ -1,5 +1,6 @@
 {
   "$schema": "./node_modules/turbo/schema.json",
+  "concurrency": "100%",
   "ui": "tui",
   "tasks": {
     "build": {},

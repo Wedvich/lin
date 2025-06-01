@@ -1,0 +1,7 @@
+{
+  "name": "@lin/tsconfig",
+  "private": true,
+  "exports": {
+    "./*.json": "./tsconfig.*.json"
+  }
+}

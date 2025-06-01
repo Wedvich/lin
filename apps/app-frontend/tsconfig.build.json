@@ -1,0 +1,5 @@
+{
+  "extends": ["@lin/tsconfig/base.json", "@lin/tsconfig/frontend.json"],
+  "include": ["src"],
+  "exclude": ["**/*.test.*"]
+}

@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "incremental": true,
+    "isolatedModules": true,
+    "module": "nodenext",
+    "strict": true,
+    "target": "es2024"
+  }
+}

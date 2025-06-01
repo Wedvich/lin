@@ -269,8 +269,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@lin/app-backend@workspace:apps/app-backend"
   dependencies:
+    "@lin/tsconfig": "workspace:*"
     "@types/express": "npm:^5.0.2"
     express: "npm:^5.1.0"
+    typescript: "npm:^5.8.3"
   languageName: unknown
   linkType: soft
 
@@ -278,6 +280,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@lin/app-frontend@workspace:apps/app-frontend"
   dependencies:
+    "@lin/tsconfig": "workspace:*"
+    typescript: "npm:^5.8.3"
     vite: "npm:^6.3.5"
   languageName: unknown
   linkType: soft
@@ -286,8 +290,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@lin/auth-backend@workspace:apps/auth-backend"
   dependencies:
+    "@lin/tsconfig": "workspace:*"
     "@types/express": "npm:^5.0.2"
     express: "npm:^5.1.0"
+    typescript: "npm:^5.8.3"
   languageName: unknown
   linkType: soft
 
@@ -295,7 +301,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@lin/auth-frontend@workspace:apps/auth-frontend"
   dependencies:
+    "@lin/tsconfig": "workspace:*"
+    typescript: "npm:^5.8.3"
     vite: "npm:^6.3.5"
+  languageName: unknown
+  linkType: soft
+
+"@lin/tsconfig@workspace:*, @lin/tsconfig@workspace:configs/tsconfig":
+  version: 0.0.0-use.local
+  resolution: "@lin/tsconfig@workspace:configs/tsconfig"
   languageName: unknown
   linkType: soft
 
@@ -1671,8 +1685,10 @@ __metadata:
   dependencies:
     "@commitlint/cli": "npm:^19.8.1"
     "@commitlint/config-conventional": "npm:^19.8.1"
+    "@lin/tsconfig": "workspace:*"
     husky: "npm:^9.1.7"
     turbo: "npm:^2.5.4"
+    typescript: "npm:^5.8.3"
   languageName: unknown
   linkType: soft
 
@@ -2650,6 +2666,26 @@ __metadata:
     media-typer: "npm:^1.1.0"
     mime-types: "npm:^3.0.0"
   checksum: 10c0/7f7ec0a060b16880bdad36824ab37c26019454b67d73e8a465ed5a3587440fbe158bc765f0da68344498235c877e7dbbb1600beccc94628ed05599d667951b99
+  languageName: node
+  linkType: hard
+
+"typescript@npm:^5.8.3":
+  version: 5.8.3
+  resolution: "typescript@npm:5.8.3"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 10c0/5f8bb01196e542e64d44db3d16ee0e4063ce4f3e3966df6005f2588e86d91c03e1fb131c2581baf0fb65ee79669eea6e161cd448178986587e9f6844446dbb48
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@npm%3A^5.8.3#optional!builtin<compat/typescript>":
+  version: 5.8.3
+  resolution: "typescript@patch:typescript@npm%3A5.8.3#optional!builtin<compat/typescript>::version=5.8.3&hash=5786d5"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 10c0/39117e346ff8ebd87ae1510b3a77d5d92dae5a89bde588c747d25da5c146603a99c8ee588c7ef80faaf123d89ed46f6dbd918d534d641083177d5fac38b8a1cb
   languageName: node
   linkType: hard
 
