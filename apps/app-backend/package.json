@@ -7,6 +7,7 @@
     "dev": "node --no-warnings --watch src/index.ts"
   },
   "dependencies": {
+    "@lin/utils": "workspace:*",
     "express": "^5.1.0"
   },
   "devDependencies": {

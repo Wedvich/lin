@@ -1,4 +1,7 @@
 import { defineConfig } from "vite";
+import { parsePort } from "@lin/utils/port";
+
+const PORT = parsePort(process.env.AUTH_FRONTEND_PORT, 5173);
 
 export default defineConfig({
   build: {
@@ -6,5 +9,8 @@ export default defineConfig({
   },
   experimental: {
     enableNativePlugin: true,
+  },
+  server: {
+    port: PORT,
   },
 });

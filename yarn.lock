@@ -270,6 +270,7 @@ __metadata:
   resolution: "@lin/app-backend@workspace:apps/app-backend"
   dependencies:
     "@lin/tsconfig": "workspace:*"
+    "@lin/utils": "workspace:*"
     "@types/express": "npm:^5.0.2"
     express: "npm:^5.1.0"
     typescript: "npm:^5.8.3"
@@ -281,6 +282,7 @@ __metadata:
   resolution: "@lin/app-frontend@workspace:apps/app-frontend"
   dependencies:
     "@lin/tsconfig": "workspace:*"
+    "@lin/utils": "workspace:*"
     typescript: "npm:^5.8.3"
     vite: "npm:^6.3.5"
   languageName: unknown
@@ -291,6 +293,7 @@ __metadata:
   resolution: "@lin/auth-backend@workspace:apps/auth-backend"
   dependencies:
     "@lin/tsconfig": "workspace:*"
+    "@lin/utils": "workspace:*"
     "@types/express": "npm:^5.0.2"
     express: "npm:^5.1.0"
     typescript: "npm:^5.8.3"
@@ -302,6 +305,7 @@ __metadata:
   resolution: "@lin/auth-frontend@workspace:apps/auth-frontend"
   dependencies:
     "@lin/tsconfig": "workspace:*"
+    "@lin/utils": "workspace:*"
     typescript: "npm:^5.8.3"
     vite: "npm:^6.3.5"
   languageName: unknown
@@ -310,6 +314,15 @@ __metadata:
 "@lin/tsconfig@workspace:*, @lin/tsconfig@workspace:configs/tsconfig":
   version: 0.0.0-use.local
   resolution: "@lin/tsconfig@workspace:configs/tsconfig"
+  languageName: unknown
+  linkType: soft
+
+"@lin/utils@workspace:*, @lin/utils@workspace:packages/utils":
+  version: 0.0.0-use.local
+  resolution: "@lin/utils@workspace:packages/utils"
+  dependencies:
+    "@lin/tsconfig": "workspace:*"
+    typescript: "npm:^5.8.3"
   languageName: unknown
   linkType: soft
 

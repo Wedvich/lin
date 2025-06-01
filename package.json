@@ -9,7 +9,8 @@
   "packageManager": "yarn@4.9.1",
   "workspaces": [
     "apps/*",
-    "configs/*"
+    "configs/*",
+    "packages/*"
   ],
   "scripts": {
     "build": "turbo run build --continue",

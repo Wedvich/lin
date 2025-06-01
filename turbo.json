@@ -3,15 +3,27 @@
   "concurrency": "100%",
   "ui": "tui",
   "tasks": {
-    "build": {},
+    "build": {
+      "outputLogs": "new-only"
+    },
     "dev": {
       "cache": false,
       "persistent": true
     },
-    "lint": {},
-    "test:coverage": {},
-    "test:watch": {},
-    "test": {},
-    "typecheck": {}
+    "lint": {
+      "outputLogs": "new-only"
+    },
+    "test:coverage": {
+      "outputLogs": "new-only"
+    },
+    "test:watch": {
+      "outputLogs": "new-only"
+    },
+    "test": {
+      "outputLogs": "new-only"
+    },
+    "typecheck": {
+      "outputLogs": "new-only"
+    }
   }
 }
