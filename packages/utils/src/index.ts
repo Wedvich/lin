@@ -1,1 +1,1 @@
-export { parsePort } from "./port.js";
+export { parsePort } from "./port.ts";

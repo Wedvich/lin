@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
-    "dev": "node --no-warnings --watch src/index.ts"
+    "dev": "node --no-warnings --watch src/index.ts",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@lin/utils": "workspace:*",

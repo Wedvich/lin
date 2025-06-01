@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/turbo/schema.json",
   "concurrency": "100%",
-  "ui": "tui",
+  "ui": "stream",
   "tasks": {
     "build": {
       "outputLogs": "new-only"

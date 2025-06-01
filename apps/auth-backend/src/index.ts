@@ -1,6 +1,6 @@
 import express from "express";
 import { createServer } from "node:http";
-import { parsePort } from "@lin/utils/port";
+import { parsePort } from "@lin/utils";
 
 const app = express();
 app.use(express.json());

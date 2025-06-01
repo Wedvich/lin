@@ -14,7 +14,7 @@
   ],
   "scripts": {
     "build": "turbo run build --continue",
-    "dev": "turbo run dev --continue",
+    "dev": "turbo run dev --continue --ui tui",
     "lint": "turbo run lint --continue",
     "test:coverage": "turbo run test:coverage --continue",
     "test:watch": "turbo run test:watch --continue",

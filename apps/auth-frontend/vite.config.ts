@@ -1,5 +1,5 @@
 import { defineConfig } from "vite";
-import { parsePort } from "@lin/utils/port";
+import { parsePort } from "@lin/utils";
 
 const PORT = parsePort(process.env.AUTH_FRONTEND_PORT, 5173);
 
