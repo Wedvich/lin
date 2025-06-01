@@ -16,6 +16,7 @@
     "build": "turbo run build --continue",
     "dev": "turbo run dev --continue --ui tui",
     "lint": "turbo run lint --continue",
+    "start": "docker compose -f docker-compose.yml up --remove-orphans",
     "test:coverage": "turbo run test:coverage --continue",
     "test:watch": "turbo run test:watch --continue",
     "test": "turbo run test --continue",

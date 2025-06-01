@@ -1,0 +1,17 @@
+services:
+  app-backend:
+    build:
+      context: .
+      dockerfile: ./apps/app-backend/Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - APP_BACKEND_PORT=3000
+  auth-backend:
+    build:
+      context: .
+      dockerfile: ./apps/auth-backend/Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      - AUTH_BACKEND_PORT=3001
