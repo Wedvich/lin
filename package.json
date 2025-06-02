@@ -16,6 +16,7 @@
     "build": "turbo run build --continue",
     "dev": "turbo run dev --continue --ui tui",
     "lint": "turbo run lint --continue",
+    "postinstall": "husky || true",
     "start": "docker compose -f docker-compose.yml up --remove-orphans",
     "test:coverage": "turbo run test:coverage --continue",
     "test:watch": "turbo run test:watch --continue",
@@ -28,8 +29,10 @@
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
+    "@lin/lint-staged": "workspace:*",
     "@lin/tsconfig": "workspace:*",
     "husky": "^9.1.7",
+    "lint-staged": "^16.1.0",
     "turbo": "^2.5.4",
     "typescript": "^5.8.3"
   }
