@@ -7,6 +7,7 @@ services:
       - "3000:3000"
     environment:
       - APP_BACKEND_PORT=3000
+      - APP_BACKEND_HOST=0.0.0.0
   auth-backend:
     build:
       context: .
@@ -15,3 +16,4 @@ services:
       - "3001:3001"
     environment:
       - AUTH_BACKEND_PORT=3001
+      - AUTH_BACKEND_HOST=0.0.0.0

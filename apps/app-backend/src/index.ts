@@ -3,12 +3,17 @@ import { createServer } from "node:http";
 import { parsePort } from "@lin/utils";
 
 const app = express();
+
+app.get("/health", (req, res) => {
+  res.send({ status: "OK" });
+});
+
 app.use(express.json());
 
 const server = createServer(app);
 
 const PORT = parsePort(process.env.APP_BACKEND_PORT, 3000);
-const HOST = process.env.HOST || "localhost";
+const HOST = process.env.APP_BACKEND_HOST || "localhost";
 
 server.listen(PORT, HOST, () => {
   console.log(`Server running at http://${HOST}:${PORT}/`);

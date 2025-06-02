@@ -22,14 +22,14 @@ RUN yarn build
 FROM base AS runner
 WORKDIR /app
 
-ARG APP_BACKEND_PORT=3000
-ENV APP_BACKEND_PORT=$APP_BACKEND_PORT
-
 RUN addgroup --system --gid 1001 expressjs
 RUN adduser --system --uid 1001 expressjs
 USER expressjs
 
 COPY --from=installer /app .
+
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD wget --no-verbose --tries=1 --spider http://localhost:$APP_BACKEND_PORT/health || exit 1
 
 # ENTRYPOINT ["tail", "-f", "/dev/null"]
 CMD node apps/app-backend/dist/index.js
