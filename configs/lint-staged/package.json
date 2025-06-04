@@ -4,5 +4,8 @@
   "type": "module",
   "exports": {
     ".": "./lint-staged.config.js"
+  },
+  "scripts": {
+    "lint": "oxlint ."
   }
 }

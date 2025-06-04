@@ -5,6 +5,7 @@
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
     "dev": "node --no-warnings --watch src/index.ts",
+    "lint": "oxlint --tsconfig tsconfig.json .",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

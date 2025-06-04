@@ -5,6 +5,7 @@
   "scripts": {
     "build": "vite build",
     "dev": "vite dev",
+    "lint": "oxlint --tsconfig tsconfig.json .",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {

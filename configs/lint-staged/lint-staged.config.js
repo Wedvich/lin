@@ -1,3 +1,3 @@
 export default {
-  "*.{js,ts}": [],
+  "**/*.{js,ts,tsx}": () => "yarn lint -- --fix",
 };

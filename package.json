@@ -6,7 +6,7 @@
     "url": "https://github.com/Wedvich/lin"
   },
   "type": "module",
-  "packageManager": "yarn@4.9.1",
+  "packageManager": "yarn@4.9.2+sha512.1fc009bc09d13cfd0e19efa44cbfc2b9cf6ca61482725eb35bbc5e257e093ebf4130db6dfe15d604ff4b79efd8e1e8e99b25fa7d0a6197c9f9826358d4d65c3c",
   "workspaces": [
     "apps/*",
     "configs/*",
@@ -33,6 +33,7 @@
     "@lin/tsconfig": "workspace:*",
     "husky": "^9.1.7",
     "lint-staged": "^16.1.0",
+    "oxlint": "^0.17.0",
     "turbo": "^2.5.4",
     "typescript": "^5.8.3"
   }
