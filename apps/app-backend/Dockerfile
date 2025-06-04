@@ -1,5 +1,5 @@
-FROM node:24-alpine AS base
-RUN npx yarn set version 4.9.1
+FROM node:24.1.0-alpine AS base
+RUN corepack enable
 
 FROM base AS builder
 RUN apk update
