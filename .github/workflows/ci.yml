@@ -39,5 +39,11 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
 
-      - name: Validate
-        run: yarn turbo lint typecheck test
+      - name: Lint
+        run: yarn turbo lint -- --format=github
+
+      - name: Typecheck
+        run: yarn turbo typecheck
+
+      - name: Test
+        run: yarn turbo test
