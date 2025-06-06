@@ -8,6 +8,18 @@ app.get("/health", (req, res) => {
   res.send({ status: "OK" });
 });
 
+app.get("/authorize", (req, res) => {
+  //const { response_type, client_id, redirect_uri, scope, state } = req.query;
+
+  res.send("token endpoint not implemented yet");
+});
+
+app.post("/token", (req, res) => {
+  //const { grant_type, code, redirect_uri, client_id, client_secret } = req.body;
+
+  res.send("token endpoint not implemented yet");
+});
+
 app.use(express.json());
 
 const server = createServer(app);

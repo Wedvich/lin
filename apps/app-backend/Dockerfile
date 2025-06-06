@@ -28,6 +28,8 @@ USER expressjs
 
 COPY --from=installer /app .
 
+EXPOSE $APP_BACKEND_PORT
+
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
   CMD wget --no-verbose --tries=1 --spider http://localhost:$APP_BACKEND_PORT/health || exit 1
 

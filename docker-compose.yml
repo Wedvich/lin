@@ -17,3 +17,12 @@ services:
     environment:
       - AUTH_BACKEND_PORT=3001
       - AUTH_BACKEND_HOST=0.0.0.0
+  nginx:
+    build:
+      context: .
+      dockerfile: ./apps/nginx/Dockerfile
+    ports:
+      - "3080:80"
+    depends_on:
+      - app-backend
+      - auth-backend
