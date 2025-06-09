@@ -8,9 +8,6 @@ export default defineConfig({
   build: {
     outDir: "dist",
   },
-  experimental: {
-    enableNativePlugin: true,
-  },
   server: {
     port: PORT,
   },
